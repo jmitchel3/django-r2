@@ -5,6 +5,11 @@ scripts:
     - cd sample_project && ../venv/bin/python manage.py runserver 8133
   sample_shell:
     - cd sample_project && ../venv/bin/python manage.py shell
+  sample_collectstatic:
+    - rm -rf src/django_r2/static/django_r2/theme/dev
+    - rm -rf src/django_r2/static/django_r2/upload.js/dev
+    - rm -rf sample_project/static_root/*
+    - cd sample_project && ../venv/bin/python manage.py collectstatic --noinput
   bump:
     - venv/bin/bump2version patch
   makemigrations:

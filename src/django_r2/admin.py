@@ -116,6 +116,6 @@ class ObjectAdmin(admin.ModelAdmin):
     def download_buttons(self, obj):
         url = obj.get_s3_download_url()
         s3_button = f'<a href="{url}" target="_blank">Download from S3</a>'
-        s3_button2 = f'<a href="{url}" target="_blank">Download from srvup</a>'
+        s3_button2 = f'<a href="{url}" target="_blank">Download</a>'
         html_ = "<br/>".join([s3_button, s3_button2])
         return mark_safe(html_)

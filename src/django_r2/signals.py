@@ -5,7 +5,6 @@ from django.conf import settings
 from django.db.models.signals import post_delete, post_save
 from django.dispatch import receiver
 from django.utils import timezone
-
 from helpers.packages.mycloudflare.buckets import (
     create_r2_bucket,
     delete_r2_bucket,
@@ -25,7 +24,7 @@ def project_post_save_receiver(sender, instance, **kwargs):
         hash_object = hashlib.sha256(hash_input)
         # Take first 16 characters of the hex digest (64 bits)
         hash_prefix = hash_object.hexdigest()[:16]
-        bucket_prefix = "srv" if not settings.DEBUG else "srv-dev"
+        bucket_prefix = "django_r2" if not settings.DEBUG else "django_r2_dev"
         bucket_name = f"{bucket_prefix}-{hash_prefix}"
         cf_bucket_response = create_r2_bucket(bucket_name)
         cors_response = update_r2_bucket_cors(bucket_name)

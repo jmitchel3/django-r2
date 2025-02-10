@@ -1,11 +1,12 @@
 {
     "scripts": {
-        "rm_watch_output": "rm -f ./src/staticfiles/theme_dev/tailwind-out-*.css",
-        "rm_watch_uploadjs": "rm -f ./src/staticfiles/js_dev/upload*.js",
-        "watch_uploadjs": "nodemon --watch src/upload.js --ext 'js,jsx' --exec 'npm run rm_watch_uploadjs && esbuild src/upload.js/index.jsx --bundle --outfile=src/staticfiles/js_dev/upload-$(date +%s).js --minify --format=iife --jsx-factory=h --jsx-fragment=Fragment'",
-        "build_uploadjs": "esbuild src/upload.js/index.jsx --bundle --outfile=src/staticfiles/js/upload.min.js --minify --format=iife --jsx-factory=h --jsx-fragment=Fragment",
-        "watch_theme": "npm run rm_watch_output && tailwindcss -i ./src/staticfiles/base_tailwind/tailwind-input.css -o ./src/staticfiles/theme_dev/tailwind-out-$(date +%s).css --build --minify --watch",
-        "build_theme": "tailwindcss -i ./src/staticfiles/base_tailwind/tailwind-input.css -o ./src/staticfiles/theme/srvup.min.css --build --minify",
+        "rm_watch_output": "rm -f ./src/django_r2/static/django_r2/theme/dev-*.css",
+        "rm_watch_uploadjs": "rm -f ./src/django_r2/static/django_r2/upload.js/dev/upload*.js",
+        "clear_dev_static": "rm -rf ./src/django_r2/static/django_r2/theme/dev/* && rm -rf ./src/django_r2/static/django_r2/upload.js/dev/*",
+        "watch_uploadjs": "nodemon --watch src/django_r2/upload.js/ --ext 'js,jsx' --exec 'npm run rm_watch_uploadjs && esbuild src/django_r2/upload.js/index.jsx --bundle --outfile=src/django_r2/static/django_r2/upload.js/dev/upload-$(date +%s).js --minify --format=iife --jsx-factory=h --jsx-fragment=Fragment'",
+        "build_uploadjs": "esbuild src/django_r2/upload.js/index.jsx --bundle --outfile=src/django_r2/static/django_r2/upload.js/prod/upload.min.js --minify --format=iife --jsx-factory=h --jsx-fragment=Fragment",
+        "watch_theme": "npm run rm_watch_output && npx @tailwindcss/cli -i ./src/django_r2/static/django_r2/theme/base/tailwind-input.css -o ./src/django_r2/static/django_r2/theme/dev/tailwind-out-$(date +%s).css --build --minify --watch",
+        "build_theme": "tailwindcss -i ./src/django_r2/static/django_r2/theme/base/tailwind-input.css -o ./src/django_r2/static/django_r2/theme/prod/django_r2_theme.min.css --build --minify",
         "watch": "concurrently \"npm run watch_uploadjs\" \"npm run watch_theme\"",
         "build": "npm run build_uploadjs && npm run build_theme"
     },
@@ -16,10 +17,11 @@
         "concurrently": "^8.2.2",
         "esbuild": "^0.24.2",
         "nodemon": "^3.0.0",
-        "tailwindcss": "^3.4.17",
+        "tailwindcss": "^4.0.6",
         "terser": "^5.37.0"
     },
     "dependencies": {
+        "@tailwindcss/cli": "^4.0.6",
         "@tailwindcss/postcss": "^4.0.6",
         "postcss": "^8.5.1",
         "preact": "^10.25.4"

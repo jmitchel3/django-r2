@@ -1,5 +1,8 @@
 sample_project/db.sqlite3
-src/django_r2/staticfiles/django_r2/theme/dev/*
+src/django_r2/static/django_r2/theme/dev/*
+src/django_r2/static/django_r2/upload.js/dev/*
+sample_project/staticfiles/*
+sample_project/static_root/*
 
 .DS_Store
 *.py[cod]
