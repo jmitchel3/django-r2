@@ -1,0 +1,27 @@
+{
+    "scripts": {
+        "rm_watch_output": "rm -f ./src/staticfiles/theme_dev/tailwind-out-*.css",
+        "rm_watch_uploadjs": "rm -f ./src/staticfiles/js_dev/upload*.js",
+        "watch_uploadjs": "nodemon --watch src/upload.js --ext 'js,jsx' --exec 'npm run rm_watch_uploadjs && esbuild src/upload.js/index.jsx --bundle --outfile=src/staticfiles/js_dev/upload-$(date +%s).js --minify --format=iife --jsx-factory=h --jsx-fragment=Fragment'",
+        "build_uploadjs": "esbuild src/upload.js/index.jsx --bundle --outfile=src/staticfiles/js/upload.min.js --minify --format=iife --jsx-factory=h --jsx-fragment=Fragment",
+        "watch_theme": "npm run rm_watch_output && tailwindcss -i ./src/staticfiles/base_tailwind/tailwind-input.css -o ./src/staticfiles/theme_dev/tailwind-out-$(date +%s).css --build --minify --watch",
+        "build_theme": "tailwindcss -i ./src/staticfiles/base_tailwind/tailwind-input.css -o ./src/staticfiles/theme/srvup.min.css --build --minify",
+        "watch": "concurrently \"npm run watch_uploadjs\" \"npm run watch_theme\"",
+        "build": "npm run build_uploadjs && npm run build_theme"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.26.0",
+        "@babel/preset-react": "^7.26.3",
+        "@tailwindcss/typography": "^0.5.16",
+        "concurrently": "^8.2.2",
+        "esbuild": "^0.24.2",
+        "nodemon": "^3.0.0",
+        "tailwindcss": "^3.4.17",
+        "terser": "^5.37.0"
+    },
+    "dependencies": {
+        "@tailwindcss/postcss": "^4.0.6",
+        "postcss": "^8.5.1",
+        "preact": "^10.25.4"
+    }
+}
